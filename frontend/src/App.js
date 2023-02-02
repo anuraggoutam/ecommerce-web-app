@@ -1,32 +1,55 @@
-import data from './data';
+import ProductScreen from './screens/ProductScreen';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Badge from 'react-bootstrap/Badge';
+import Nav from 'react-bootstrap/Nav';
+import { LinkContainer } from 'react-router-bootstrap';
+import CartScreen from './screens/CartScreen';
+import { useContext } from 'react';
+import { Store } from './Store';
+
 function App() {
+  const { state } = useContext(Store);
+  const { cart } = state;
+  console.log(cart.cartItems);
   return (
-    <div className="App">
-      <header>
-        <a href="/">amazon</a>
-      </header>
-      <main>
-        <h1>Featured Products</h1>
-        <div className="products">
-          {data.products.map((product) => (
-            <div className="product" key={product.slug}>
-              <a href={`/product/${product.slug}`}>
-                <img src={product.image} alt={product.name} />
-              </a>
-              <div className="product-info">
-                <a href={`/product/${product.slug}`}>
-                  <p>{product.name}</p>
-                </a>
-                <p>
-                  <strong>{product.price}</strong>
-                </p>
-                <bottom>Add to cart</bottom>
-              </div>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
+    <BrowserRouter>
+      <div className="d-flex flex-column site-container">
+        <header>
+          <Navbar bg="dark" variant="dark" expand="true">
+            <Container>
+              <LinkContainer to="/">
+                <Navbar.Brand>Amazon</Navbar.Brand>
+              </LinkContainer>
+              <Nav className="me-auto">
+                <Link to="/cart" className="nav-link">
+                  Cart
+                  {cart.cartItems.length > 0 && (
+                    <Badge pill bg="danger">
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Badge>
+                  )}
+                </Link>
+              </Nav>
+            </Container>
+          </Navbar>
+        </header>
+        <main>
+          <Container className="mt-3">
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path="/cart" element={<CartScreen />} />
+            </Routes>
+          </Container>
+        </main>
+        <footer>
+          <div className="text-center">ALL rights reserved</div>
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
