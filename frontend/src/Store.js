@@ -13,7 +13,7 @@ function reducer(state, action) {
     case 'CART_ADD_ITEM':
       //add to cart
       //newItem contain new quantity
-      const newItem = action.payload;
+      const newItem = action.payload;//obj
       const existItem = state.cart.cartItems.find(
         (item) => item.id === newItem.id
       ); //get exist item
@@ -24,7 +24,7 @@ function reducer(state, action) {
         : //if item exists then update existing item with new item else update new item
           [...state.cart.cartItems, newItem];
 
-      return { ...state, cart: { ...state.cart, cartItems } };
+      return { ...state, cart: { ...state.cart, cartItems } };//addinng new modify array in cart
 
     default:
       return state;

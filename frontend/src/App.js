@@ -13,7 +13,7 @@ import { Store } from './Store';
 function App() {
   const { state } = useContext(Store);
   const { cart } = state;
-  console.log(cart.cartItems);
+  console.log(cart);
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
