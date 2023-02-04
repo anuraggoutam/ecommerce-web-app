@@ -13,7 +13,7 @@ const reducer = (state, action) => {
     case "FETCH_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SUCCESS":
-      return { ...state, products: action.payload, loading: false };
+      return { ...state, products: action.payload, loading: false };//sendinng prev state and products data
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
@@ -30,7 +30,7 @@ function HomeScreen() {
   // const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
+      dispatch({ type: "FETCH_REQUEST" });//first 
       try {
         const result = await axios.get("/api/products");
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
