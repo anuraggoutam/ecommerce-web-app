@@ -12,7 +12,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function CartScreen() {
-  const { state, dispatch: ctxDispatch } = useContext(state);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const navigate = useNavigate()
   const {
     cart: { cartItems },
