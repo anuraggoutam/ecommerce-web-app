@@ -13,7 +13,10 @@ const app = express();
 
 app.use('/api/seed', seedRouter);
 app.use('/api/products', productRouter);
-
+app.use((err, req, res, next) => {
+  res.status(500).send({message: err.message});
+  next();
+})
 app.listen(PORT, () => {
   console.log(`Server at http:localhost:${PORT}`);
 });
