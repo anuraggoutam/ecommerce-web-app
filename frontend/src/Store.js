@@ -37,6 +37,7 @@ function reducer(state, action) {
         : //if item exists then update existing item with new item else update new item
           [...state.cart.cartItems, newItem];
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
       return { ...state, cart: { ...state.cart, cartItems } }; //addinng new modify array in cart
 
     case 'CART_REMOVE_ITEM': {
@@ -46,6 +47,10 @@ function reducer(state, action) {
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } }; //...state.cart (all data expect cart ) + (_cart.Item)filter item that satisfy condition(item which is not equal to item._id)
     }
+    case 'USER_SIGNIN':
+      return { ...state, userInfo: action.payload };
+    case 'User_SIGNOUT':
+      return { ...state, userInfo: null };
     default:
       return state;
   }
