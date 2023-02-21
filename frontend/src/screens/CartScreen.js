@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     cart: { cartItems },
   } = state;
@@ -35,9 +35,9 @@ export default function CartScreen() {
       payload: item,
     });
   };
-  const checkoutHandler = ()=>{
-    navigate('/signin?redirect=shipping')
-  }
+  const checkoutHandler = () => {
+    navigate('/signin?redirect=shipping');
+  };
 
   return (
     <div>

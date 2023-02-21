@@ -13,6 +13,7 @@ const SigninScreen = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
   const { search } = useLocation(); // give current url
   const redirectInUrl = new URLSearchParams(search).get('redirect'); // URLSearchParams give url as a object // get give value of object key
   const redirect = redirectInUrl ? redirectInUrl : '/'; //redirect=shipping
