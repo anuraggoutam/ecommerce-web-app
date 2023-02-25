@@ -20,40 +20,47 @@ const initialState = {
       : [],
   },
 };
-
 function reducer(state, action) {
   switch (action.type) {
+    case 'SET_FULLBOX_ON':
+      return { ...state, fullBox: true };
+    case 'SET_FULLBOX_OFF':
+      return { ...state, fullBox: false };
+
     case 'CART_ADD_ITEM':
-      //add to cart
-      //newItem contain new quantity
-      const newItem = action.payload; //obj
+      // add to cart
+      const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
-        (item) => item.id === newItem.id
-      ); //get exist item
+        (item) => item._id === newItem._id
+      );
       const cartItems = existItem
         ? state.cart.cartItems.map((item) =>
-            item.id === existItem.id ? newItem : item
-          ) // ________condition_______? if true  :  if false ;       :
-        : //if item exists then update existing item with new item else update new item
-          [...state.cart.cartItems, newItem];
+            item._id === existItem._id ? newItem : item
+          )
+        : [...state.cart.cartItems, newItem];
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-      return { ...state, cart: { ...state.cart, cartItems } }; //addinng new modify array in cart
-
+      return { ...state, cart: { ...state.cart, cartItems } };
     case 'CART_REMOVE_ITEM': {
       const cartItems = state.cart.cartItems.filter(
         (item) => item._id !== action.payload._id
       );
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } }; //...state.cart (all data expect cart ) + (_cart.Item)filter item that satisfy condition(item which is not equal to item._id)
+      return { ...state, cart: { ...state.cart, cartItems } };
     }
+    case 'CART_CLEAR':
+      return { ...state, cart: { ...state.cart, cartItems: [] } };
+
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload };
-    case 'User_SIGNOUT':
+    case 'USER_SIGNOUT':
       return {
         ...state,
         userInfo: null,
-        cart: { cartItems: [], shippingAddress: {}, paymentMethod: {} },
+        cart: {
+          cartItems: [],
+          shippingAddress: {},
+          paymentMethod: '',
+        },
       };
     case 'SAVE_SHIPPING_ADDRESS':
       return {
@@ -63,13 +70,22 @@ function reducer(state, action) {
           shippingAddress: action.payload,
         },
       };
-    case 'SAVE_PAYMENT_METHOD':
+    case 'SAVE_SHIPPING_ADDRESS_MAP_LOCATION':
       return {
         ...state,
         cart: {
           ...state.cart,
-          paymentMethod: action.payload,
+          shippingAddress: {
+            ...state.cart.shippingAddress,
+            location: action.payload,
+          },
         },
+      };
+
+    case 'SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
       };
     default:
       return state;
@@ -79,5 +95,5 @@ function reducer(state, action) {
 export function StoreProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
-  return <Store.Provider value={value}>{props.children}</Store.Provider>;
+  return <Store.Provider value={value}>{props.children} </Store.Provider>;
 }

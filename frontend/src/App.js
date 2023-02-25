@@ -16,7 +16,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SignUpScreen from './screens/SignupScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
-
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -85,6 +86,9 @@ function App() {
                 path="/signin/shipping"
                 element={<ShippingAddressScreen />}
               />
+
+              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/order/:id" element={<OrderScreen />} />
             </Routes>
           </Container>
         </main>
