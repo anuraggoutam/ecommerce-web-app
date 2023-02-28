@@ -30,7 +30,7 @@ const SigninScreen = () => {
         password,
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data.token));
+      localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (error) {
       toast.error(geterror(error));

@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Axios, { toFormData } from 'axios';
+import Axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { useNavigate } from 'react-router-dom';
@@ -36,7 +36,7 @@ const SignUpScreen = () => {
         password,
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data.token));
+      localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (error) {
       toast.error(geterror(error));
